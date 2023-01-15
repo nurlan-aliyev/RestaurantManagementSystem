@@ -2,78 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image 
 from tkinter import messagebox
-import sqlite3
-from sqlite3 import Error
 from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1)
 
-class Database:
-    def __init__(self, db):
-        self.conn = sqlite3.connect(db)
-        self.cur = self.conn.cursor()
-        self.cur.execute(
-            "CREATE TABLE IF NOT EXISTS gen_config (id INTEGER PRIMARY KEY, conf_name text);")
-        self.conn.commit()
+from Database import Database
 
-        self.insert_genconfig()
-      
-
-    def create_table(self, create_table_query):
-        try:
-            cursor = self.cur
-            cursor.execute(create_table_query)
-            self.conn.commit()
-        except Error as e:
-            print(e)
-
-    def insert_genconfig(self):
-        try:
-            self.cur.execute("INSERT OR IGNORE INTO gen_config(id, conf_name) VALUES (?, ?)",
-                            (1, "fac_config"))
-            self.cur.execute("INSERT OR IGNORE INTO gen_config(id, conf_name) VALUES (?, ?)",
-                    (2, "menu_config"))    
-            self.cur.execute("INSERT OR IGNORE INTO gen_config(id, conf_name) VALUES (?, ?)",
-                            (3, "orders"))     
-            self.conn.commit()
-        except Error as e:
-            print(e)
-
-    def insert_spec_config(self, insert_query, values):
-        try:
-            con = self.cur
-            con.execute(insert_query, values)
-            self.conn.commit()
-        except Error as e:
-            print(e)
-
-    def update(self, update_query, values):
-        try:
-            con = self.cur
-            con.execute(update_query, values)
-            self.conn.commit()
-        except Error as e:
-            print(e)
-
-    def read_val(self, read_query):
-        try:
-            con = self.cur
-            con.execute(read_query)
-            rows = con.fetchall()
-            return rows
-        except Error as e:
-            print(e)
-            
-    def delete_val(self, delete_query, item_id):
-        try:
-            con = self.cur
-            con.execute(delete_query, item_id)
-            self.conn.commit()
-        except Error as e:
-            print(e)
-            
-
-    def __del__(self):
-        self.conn.close()
 
 class ConfigWindow(tk.Toplevel):
     def __init__(self, parent):
@@ -214,9 +147,13 @@ class ConfigWindow(tk.Toplevel):
         #btn tr
         self.tr_view_add = ttk.Button(self.add_prd_lbf, text="Add", command=self.add_record)
         self.tr_view_add.grid(column=2, row=0, rowspan=2, padx=10)
+        
+        self.tr_view_add.bind('<Return>', self.add_record)
 
         self.tr_view_remove = ttk.Button(self.remove_prd_lbf, text="Remove", command=self.remove_selected, state=tk.DISABLED)
         self.tr_view_remove.grid(column=2, row=0,padx=10, sticky=tk.E)
+        
+        
         
         self.check_if_empty_database()
         self.check_if_empty_fc_entry()
@@ -228,6 +165,8 @@ class ConfigWindow(tk.Toplevel):
         if len(result) > 0:    
             for el in result:
                 self.tr_view.insert('', tk.END, iid=f"{el[0]}", values=el)
+        else:
+            self.tr_view_remove.config(state=tk.DISABLED)
                 
     def get_product_id(self):
         res = self.tr_view.get_children()
@@ -266,10 +205,12 @@ class ConfigWindow(tk.Toplevel):
             t_num = result[0][2]
             s_num = result[0][3]
             
-            if f_name == '' and t_num == '' and s_num == '':
-                self.fc_load_btn.config(state=tk.DISABLED)
-            else:
+            if f_name and t_num and s_num:
                 self.fc_load_btn.config(state=tk.ACTIVE)
+            else:
+                self.fc_load_btn.config(state=tk.DISABLED)
+                self.tr_view_remove.config(state=tk.DISABLED)
+                
             
     def check_if_empty_fc_entry(self):
         f_name = self.fc_name_ent.get()
@@ -282,12 +223,15 @@ class ConfigWindow(tk.Toplevel):
             self.fc_clear_btn.config(state=tk.DISABLED)
         
     def product_selected(self, event):
-        selected_item = self.tr_view.selection()[0]
-        sel_item_val = self.tr_view.item(selected_item)['values']
-        sel_pr_txt = f"{sel_item_val[0]}) {sel_item_val[1]} {sel_item_val[2]}"
-        self.sel_pr_id_lbl.config(text="")
-        self.sel_pr_id_lbl.config(text=sel_pr_txt)
-        self.tr_view_remove.config(state=tk.ACTIVE)
+        try:    
+            selected_item = self.tr_view.selection()[0]
+            sel_item_val = self.tr_view.item(selected_item)['values']
+            sel_pr_txt = f"{sel_item_val[0]}) {sel_item_val[1]} {sel_item_val[2]}"
+            self.sel_pr_id_lbl.config(text="")
+            self.sel_pr_id_lbl.config(text=sel_pr_txt)
+            self.tr_view_remove.config(state=tk.ACTIVE)
+        except IndexError as e:
+            print(e)
 
     def fac_conf_clear(self):
         self.fc_name_ent.delete(0, tk.END) 
@@ -366,6 +310,7 @@ class ConfigWindow(tk.Toplevel):
         try:
             sel_it_ind = selected_item[0]
             delete_query = """DELETE FROM menu_config WHERE id = ?"""
+            self.tr_view_remove.config(state=tk.DISABLED)
         except IndexError as e:
             print(e)
         
@@ -375,7 +320,7 @@ class ConfigWindow(tk.Toplevel):
             self.tr_view.delete(sel_item)
         self.sel_pr_id_lbl.config(text="")
 
-    def add_record(self):
+    def add_record(self, event='<Return>'):
         food_name = self.food_name_entry.get()
         food_price = self.food_price_entry.get()
         spec_insert_query = """INSERT INTO menu_config VALUES (?, ?, ?)""" 
@@ -441,7 +386,9 @@ class KitchenWindow(tk.Toplevel):
 class CustomerWindow(tk.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
-
+        
+        self.init_database()
+        
         self.win_width = 600
         self.win_height = 570
         screen_width = self.winfo_screenwidth()
@@ -476,9 +423,10 @@ class CustomerWindow(tk.Toplevel):
         self.pr_sel_canvas.create_window((5, 5), anchor=tk.NW, window=self.pr_sel_canvas_frm)
 
         self.pr_sel_canvas_frm.bind("<Configure>", self.onFrameConfig)
+        
+        self.fac_info = self.retrieve_fac_info()
 
-
-        self.fc_name = ttk.Label(self.cst_lbl, text="Restaurant name/icon")
+        self.fc_name = ttk.Label(self.cst_lbl, text=f"{self.fac_info[0]}")
         self.fc_name.grid(column=1, row=0)
 
         self.tb_name = ttk.Label(self.cst_lbl, text="Table number:")
@@ -504,12 +452,42 @@ class CustomerWindow(tk.Toplevel):
 
         self.send_to_ch = ttk.Button(self.main_frame,text='Send to kitchen', state=tk.DISABLED)
         self.send_to_ch.grid(column=2, row=2, padx=(50,0), pady=10)
+        
+        vcmd_tn = (self.register(self.callback_table_num))
 
-        self.tb_name_entry = ttk.Entry(self.cst_lbl, width=4)
+        self.tb_name_entry = ttk.Entry(self.cst_lbl, width=4,  validate='all', validatecommand=(vcmd_tn, "%P"))
         self.tb_name_entry.grid(row=1, column=1, padx=(140,0))
+        
+    def init_database(self):
+        self.fac_db = Database("restaurant.db")
+        
+        orders_query = """
+        CREATE TABLE IF NOT EXISTS orders(
+            id integer PRIMARY KEY,
+            table_num integer NOT NULL,
+            product_name text NOT NULL,
+            order_quantity integer NOT NULL,
+            order_status text NOT NULL
+        );
+        """
 
-
-
+        self.fac_db.create_table(orders_query)
+        
+    def retrieve_fac_info(self):
+        load_query = """SELECT * FROM fac_config"""
+        result = self.fac_db.read_val(load_query)
+        fac_name = result[0][1]
+        max_table_num = result[0][3]
+        return (fac_name, max_table_num)
+    
+    def callback_table_num(self, P):
+        if (str.isdigit(P) and int(P) <= self.fac_info[1]) or P == "":
+            return True
+        else:
+            messagebox.showerror("Input Error", f"Maximum number of tables must not exceed {self.fac_info[1]}!")
+            self.tb_name_entry.delete(0, tk.END)
+            return False
+        
     def add_product(self):
         self.max = self.pr_sel_canvas_frm.grid_size()
         self.row_count.set((self.row_count.get() + 1) if self.row_count.get() >= self.max[1] else self.max[1] + 1)
@@ -609,16 +587,15 @@ class ProductSelector(tk.Frame):
     def __init__(self, parent, root_frame, row, func):
         self.func = func
         tk.Frame.__init__(self, parent)
+        
+        self.init_database()
 
         self.menuBtn = ttk.Menubutton(root_frame, text="Select a meal")
 
         self.menu = tk.Menu(self.menuBtn, tearoff=0)
         self.m_var1 = tk.StringVar()
         self.m_var1.set("Select a meal")
-        self.menu.add_radiobutton(label="Goulyash", variable=self.m_var1, command=self.sel)
-        self.menu.add_radiobutton(label="Borscht", variable=self.m_var1, command=self.sel)
-        self.menu.add_radiobutton(label="Varenyky", variable=self.m_var1, command=self.sel)
-        self.menu.add_radiobutton(label="SIRNIKI", variable=self.m_var1, command=self.sel)
+        self.retrieve_products()
         self.menuBtn['menu'] = self.menu
 
         self.menuBtn.grid(column=0, row=row, sticky=tk.W, padx=(15, 0))
@@ -645,9 +622,30 @@ class ProductSelector(tk.Frame):
         self.destroy_btn = ttk.Button(root_frame, image=self.del_icon, width=10, command=self.destroy_all)
         self.destroy_btn.image = self.del_icon
         self.destroy_btn.grid(column=3, row=row, sticky=tk.E, padx=0)
-    
+        
+    def init_database(self):
+        self.fac_db = Database("restaurant.db")
+        
+    def retrieve_products(self):
+        load_query = """SELECT * FROM menu_config"""
+        result = self.fac_db.read_val(load_query)
+        for row in result:
+            pr_lbl = row[1]
+            self.menu.add_radiobutton(label=pr_lbl, variable=self.m_var1, command=self.sel)
+            
     def pad_num(self):
-        pad_num = 38 -  len(self.m_var1.get())
+        var_len = len(self.m_var1.get())
+        if var_len == 1:
+            self.spin_box.grid_configure(padx=(80, 0))
+            pad_num = 79
+        elif var_len <= 8:
+            self.spin_box.grid_configure(padx=(80, 0))
+            pad_num = 80 - (var_len*7)
+        else:
+            self.spin_box.grid_configure(padx=(5, 0))
+            pad_num = 100 - ((var_len - 9) * 7.5)
+            
+        print(len(self.m_var1.get()), pad_num)
         return pad_num
 
     def sel(self):
