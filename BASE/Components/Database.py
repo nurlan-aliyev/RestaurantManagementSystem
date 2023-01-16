@@ -49,11 +49,15 @@ class Database:
         except Error as e:
             print(e)
 
-    def read_val(self, read_query):
+    def read_val(self, read_query, table_num=''):
         try:
             con = self.cur
-            con.execute(read_query)
-            rows = con.fetchall()
+            if "WHERE" in read_query:
+                con.execute(read_query, table_num)
+                rows = con.fetchall()
+            else:
+                con.execute(read_query)
+                rows = con.fetchall()
             return rows
         except Error as e:
             print(e)
