@@ -8,12 +8,13 @@ from database import Database
 
 
 class OrderedProducts(tk.Frame):
-    def __init__(self, parent, root_frame, label_frame, table_num):
+    def __init__(self, parent, root_frame, label_frame, table_num, func):
         tk.Frame.__init__(self, parent)
         self.root_frame = root_frame
         self.label_frame = label_frame
         self.table_num = f"Table {table_num}"
         self.t_num = table_num
+        self.f = func
         
         self.init_database()
 
@@ -44,11 +45,11 @@ class OrderedProducts(tk.Frame):
         self.tr_view.bind("<ButtonRelease-1>", self.selected_item)
 
         self.cooked_btn = ttk.Button(self.label_frame, text="Cooked", command=self.change_state)
-        self.cooked_btn.grid(column=0, row=2, padx=(0, 100), pady=10)
+        self.cooked_btn.grid(column=0, row=2, padx=(0, 200), pady=10)
         self.cooked_btn.config(state='disabled')
 
         self.flf_btn = ttk.Button(self.label_frame, text="Fulfil order", command=self.fulfil_order, state=tk.DISABLED)
-        self.flf_btn.grid(column=0, row=2, padx=(100, 0), pady=10)
+        self.flf_btn.grid(column=0, row=2, padx=(200, 0), pady=10)
         
         self.populate_menu()
         
@@ -141,6 +142,9 @@ class OrderedProducts(tk.Frame):
         self.update_order_db()
         self.destroy()
         self.root_frame.forget(self.tb)
+        if not self.root_frame.tabs():
+            self.f()
+        
     
     def selected_item(self, event):
         self.cooked_btn.config(state=tk.ACTIVE)

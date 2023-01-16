@@ -9,9 +9,9 @@ from database import Database
 from productselector import ProductSelector
 
 class CustomerWindow(tk.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, func):
         super().__init__(parent)
-        
+        self.func = func
         self.init_database()
         
         self.order_ls = []
@@ -167,15 +167,25 @@ class CustomerWindow(tk.Toplevel):
         self.max = self.pr_sel_canvas_frm.grid_size()
         self.row_count.set((self.row_count.get() + 1) if self.row_count.get() >= self.max[1] else self.max[1] + 1)
         self.pr_sl = ProductSelector(self, self.pr_sel_canvas_frm,self.row_count.get(), func=self.des_pr)
-        self.order_ls.append(self.pr_sl)
+        self.order_ls.insert(self.row_count.get() ,self.pr_sl)
         self.send_to_ch.config(state=tk.ACTIVE)
+
     
     def des_pr(self):
         if len(self.pr_sel_canvas_frm.winfo_children()) == 0:
             self.send_to_ch.config(state=tk.DISABLED)
             self.row_count.set(1)
+            self.order_ls = []
         self.set_val = self.row_count.get() - 1 if self.row_count.get() > 1 else 1
         self.row_count.set(self.set_val)
+        
     
     def onFrameConfig(self, event):
         self.pr_sel_canvas.configure(scrollregion=self.pr_sel_canvas.bbox("all"))
+        
+    def destroy(self):
+        self.func
+        super().destroy()
+        
+    def __def__(self):
+        self.func

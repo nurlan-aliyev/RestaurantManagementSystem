@@ -8,9 +8,9 @@ from database import Database
 
 
 class ConfigWindow(tk.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, func):
         super().__init__(parent)
-        
+        self.func = func
         self.init_database()
 
         self.win_width = 530
@@ -317,8 +317,6 @@ class ConfigWindow(tk.Toplevel):
             self.tr_view_remove.config(state=tk.DISABLED)
         except IndexError as e:
             print(e)
-        
-        
 
     def add_record(self, event='<Return>'):
         food_name = self.food_name_entry.get()
@@ -347,4 +345,11 @@ class ConfigWindow(tk.Toplevel):
             return True
         except ValueError:
             return False
+    
+    def destroy(self):
+        self.func
+        super().destroy()
+    
+    def __del__(self):
+        self.func
   

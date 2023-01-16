@@ -7,9 +7,9 @@ from orderedproducts import OrderedProducts
 from database import Database
 
 class KitchenWindow(tk.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, func):
         super().__init__(parent)
-        
+        self.func = func
         self.init_database()
         
         self.win_width = 630
@@ -37,8 +37,11 @@ class KitchenWindow(tk.Toplevel):
         #notebook
         self.nt = ttk.Notebook(self.kt_lb)
         self.nt.grid(column=0, row=0, ipadx=10, ipady=10, padx=10)
-
         self.add_widgets()
+        
+    def destroy(self):
+        super().destroy()
+        self.func
         
     def init_database(self):
         self.fac_db = Database("restaurant.db")
@@ -48,7 +51,6 @@ class KitchenWindow(tk.Toplevel):
         res = self.fac_db.read_val(retrieve_query)
         for r in reversed(res):
             self.retrieve_pr(r[0])
-        
-
+            
     def retrieve_pr(self, table_num):
-        self.op = OrderedProducts(self.main_frame, self.nt, self.kt_lb, str(table_num))
+        self.op = OrderedProducts(self.main_frame, self.nt, self.kt_lb, str(table_num), self.destroy)
