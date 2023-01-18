@@ -347,9 +347,9 @@ class ConfigWindow(tk.Toplevel):
             return False
     
     def destroy(self):
-        self.func
+        self.func()
         super().destroy()
     
     def __del__(self):
-        self.func
+        self.func()
   

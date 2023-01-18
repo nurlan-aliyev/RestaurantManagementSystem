@@ -184,7 +184,7 @@ class CustomerWindow(tk.Toplevel):
         self.pr_sel_canvas.configure(scrollregion=self.pr_sel_canvas.bbox("all"))
         
     def destroy(self):
-        self.func
+        self.func()
         super().destroy()
         
     def __def__(self):

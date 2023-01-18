@@ -41,7 +41,7 @@ class KitchenWindow(tk.Toplevel):
         
     def destroy(self):
         super().destroy()
-        self.func
+        self.func()
         
     def init_database(self):
         self.fac_db = Database("restaurant.db")

@@ -78,13 +78,13 @@ class MainWindow(tk.Tk):
 
 
     def config_window(self):
-        config_window = ConfigWindow(self, self.check_databases())
+        config_window = ConfigWindow(self, self.check_databases)
         config_window.grab_set()
     def kitchen_win(self):
-        kitchen_win = KitchenWindow(self, self.check_databases())
+        kitchen_win = KitchenWindow(self, self.check_databases)
         kitchen_win.grab_set()
     def customer_win(self):
-        customer_win = CustomerWindow(self, self.check_databases())
+        customer_win = CustomerWindow(self, self.check_databases)
         customer_win.grab_set()
     def about_win(self):
         about_win = AboutWindow(self)

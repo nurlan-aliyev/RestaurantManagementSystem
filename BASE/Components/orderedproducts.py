@@ -44,12 +44,12 @@ class OrderedProducts(tk.Frame):
 
         self.tr_view.bind("<ButtonRelease-1>", self.selected_item)
 
-        self.cooked_btn = ttk.Button(self.label_frame, text="Cooked", command=self.change_state)
-        self.cooked_btn.grid(column=0, row=2, padx=(0, 200), pady=10)
+        self.cooked_btn = ttk.Button(self.tb, text=f"Cooked {self.t_num}", command=self.change_state)
+        self.cooked_btn.grid(column=0, row=7, padx=(0, 200), pady=10)
         self.cooked_btn.config(state='disabled')
 
-        self.flf_btn = ttk.Button(self.label_frame, text="Fulfil order", command=self.fulfil_order, state=tk.DISABLED)
-        self.flf_btn.grid(column=0, row=2, padx=(200, 0), pady=10)
+        self.flf_btn = ttk.Button(self.tb, text="Fulfil order", command=self.fulfil_order, state=tk.DISABLED)
+        self.flf_btn.grid(column=0, row=7, padx=(200, 0), pady=10)
         
         self.populate_menu()
         
@@ -137,7 +137,7 @@ class OrderedProducts(tk.Frame):
             print(e) 
             
     def fulfil_order(self):
-        self.update_order_status()
+        
         self.store_cooked_orders()
         self.update_order_db()
         self.destroy()
@@ -148,9 +148,11 @@ class OrderedProducts(tk.Frame):
     
     def selected_item(self, event):
         self.cooked_btn.config(state=tk.ACTIVE)
+        self.check_for_cooked()
 
     def change_state(self):
         sel_item = self.tr_view.focus()
         retrieved_value = self.tr_view.item(sel_item, 'values')
         self.tr_view.item(sel_item, text="", values=(retrieved_value[0], retrieved_value[1], "Cooked"))
         self.check_for_cooked()
+        self.update_order_status()
