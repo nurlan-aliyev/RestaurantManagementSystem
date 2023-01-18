@@ -1,0 +1,1 @@
+{'text': '', 'image': '', 'values': [13, 'Dolma', 21, 21000], 'open': 0, 'tags': ''}{'text': '', 'image': '', 'values': [14, "Fisherman's soup", 20, '9799.8'], 'open': 0, 'tags': ''}{'text': '', 'image': '', 'values': [27, 'Goulyash', 2, '9179.98'], 'open': 0, 'tags': ''}{'text': '', 'image': '', 'values': [15, 'Water', 15, '718499.85'], 'open': 0, 'tags': ''}

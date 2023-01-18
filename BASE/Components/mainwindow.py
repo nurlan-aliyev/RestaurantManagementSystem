@@ -2,12 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image 
 from sqlite3 import Error
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
 
+from printorders import PrintOrders
 from configwindow import ConfigWindow
 from kitchenwindow import KitchenWindow  
-from customerwindow import CustomerWindow
+from createorders import CreateOrders
 from aboutwindow import AboutWindow
 from database import Database
 
@@ -34,9 +33,10 @@ class MainWindow(tk.Tk):
 
         self.menubar = tk.Menu(self.m_frame)
         self.filebar = tk.Menu(self.menubar, tearoff=0)
-        self.filebar.add_cascade(label="Kitchen Receipt", command=self.kitchen_win, state=tk.DISABLED)
-        self.filebar.add_cascade(label="Customer Receipt", command=self.customer_win, state=tk.DISABLED)
-        self.filebar.add_cascade(label="Configure", command=self.config_window)
+        self.filebar.add_cascade(label="Print Receipts", command=self.print_win, state=tk.DISABLED)
+        self.filebar.add_cascade(label="Kitchen", command=self.kitchen_win, state=tk.DISABLED)
+        self.filebar.add_cascade(label="Create Orders", command=self.customer_win, state=tk.DISABLED)
+        self.filebar.add_cascade(label="Configure Facility/Menu", command=self.config_window)
         self.filebar.add_separator()
         self.filebar.add_cascade(label="Exit", command=self.quit)
         self.menubar.add_cascade(label="File", menu=self.filebar)
@@ -65,14 +65,20 @@ class MainWindow(tk.Tk):
             load_query = """SELECT * FROM menu_config"""
             res = self.fac_db.read_val(load_query)
             customer_state = tk.NORMAL if res else tk.DISABLED
-            self.filebar.entryconfig(1,state = customer_state)
+            self.filebar.entryconfig(2,state = customer_state)
                 
             
             load_query1 = """SELECT * FROM orders"""
             res1 = self.fac_db.read_val(load_query1)
             
             kitchen_state = tk.NORMAL if res1 else  tk.DISABLED
-            self.filebar.entryconfig(0,state = kitchen_state)
+            self.filebar.entryconfig(1,state = kitchen_state)
+            
+            load_query2 = """SELECT * FROM cooked_orders"""
+            res2 = self.fac_db.read_val(load_query2)
+            
+            print_order_state = tk.NORMAL if res2 else tk.DISABLED
+            self.filebar.entryconfig(0, state= print_order_state)
         except Error as e:
             print(e)
 
@@ -84,9 +90,12 @@ class MainWindow(tk.Tk):
         kitchen_win = KitchenWindow(self, self.check_databases)
         kitchen_win.grab_set()
     def customer_win(self):
-        customer_win = CustomerWindow(self, self.check_databases)
+        customer_win = CreateOrders(self, self.check_databases)
         customer_win.grab_set()
     def about_win(self):
         about_win = AboutWindow(self)
         about_win.grab_set()
+    def print_win(self):
+        print_win = PrintOrders(self)
+        print_win.grab_set()
 

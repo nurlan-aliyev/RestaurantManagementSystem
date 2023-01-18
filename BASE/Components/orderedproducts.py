@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from sqlite3 import Error
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
 
 from database import Database
 
@@ -44,12 +42,12 @@ class OrderedProducts(tk.Frame):
 
         self.tr_view.bind("<ButtonRelease-1>", self.selected_item)
 
-        self.cooked_btn = ttk.Button(self.tb, text=f"Cooked {self.t_num}", command=self.change_state)
-        self.cooked_btn.grid(column=0, row=7, padx=(0, 200), pady=10)
+        self.cooked_btn = ttk.Button(self.tb, text=f"Cooked", command=self.change_state)
+        self.cooked_btn.grid(column=1, row=7, padx=(0, 200), pady=10)
         self.cooked_btn.config(state='disabled')
 
         self.flf_btn = ttk.Button(self.tb, text="Fulfil order", command=self.fulfil_order, state=tk.DISABLED)
-        self.flf_btn.grid(column=0, row=7, padx=(200, 0), pady=10)
+        self.flf_btn.grid(column=1, row=7, padx=(200, 0), pady=10)
         
         self.populate_menu()
         
@@ -72,7 +70,7 @@ class OrderedProducts(tk.Frame):
         
         
     def populate_menu(self):
-        retrieve_query = """SELECT id, table_num, product_name,  count(order_quantity) as order_quantity, order_status  FROM orders WHERE table_num = ? GROUP BY product_name ;
+        retrieve_query = """SELECT id, table_num, product_name,  SUM(order_quantity) as order_quantity, order_status  FROM orders WHERE table_num = ? GROUP BY product_name ;
             """
         res = self.fac_db.read_val(retrieve_query, (self.t_num,))
         for r in res:
@@ -96,12 +94,20 @@ class OrderedProducts(tk.Frame):
             update_query = """
                 UPDATE orders 
                 SET order_status = ? 
-                WHERE table_num = ?
+                WHERE (table_num = ? AND product_name = ?)
                 """
-            for item in self.tr_view.get_children():
-                it_val = self.tr_view.item(item, 'values')
-                or_status = it_val[2]
-                self.fac_db.update(update_query, (or_status, self.t_num))
+                
+            sel_item = self.tr_view.focus()
+            retrieved_value = self.tr_view.item(sel_item, 'values')
+            or_status = retrieved_value[2]
+            or_name  = retrieved_value[0]
+            
+            self.fac_db.update(update_query, (or_status, self.t_num, or_name))
+        
+            # for item in self.tr_view.get_children():
+            #     it_val = self.tr_view.item(item, 'values')
+            #     or_status = it_val[2]
+            #     self.fac_db.update(update_query, (or_status, self.t_num))
         except Error as e:
           print(e)
           
@@ -136,8 +142,7 @@ class OrderedProducts(tk.Frame):
         except Error as e:
             print(e) 
             
-    def fulfil_order(self):
-        
+    def fulfil_order(self):  
         self.store_cooked_orders()
         self.update_order_db()
         self.destroy()
@@ -154,5 +159,6 @@ class OrderedProducts(tk.Frame):
         sel_item = self.tr_view.focus()
         retrieved_value = self.tr_view.item(sel_item, 'values')
         self.tr_view.item(sel_item, text="", values=(retrieved_value[0], retrieved_value[1], "Cooked"))
-        self.check_for_cooked()
         self.update_order_status()
+        self.check_for_cooked()
+        

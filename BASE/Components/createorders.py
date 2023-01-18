@@ -2,13 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from sqlite3 import Error
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
 
 from database import Database
 from productselector import ProductSelector
 
-class CustomerWindow(tk.Toplevel):
+class CreateOrders(tk.Toplevel):
     def __init__(self, parent, func):
         super().__init__(parent)
         self.func = func
@@ -33,7 +31,7 @@ class CustomerWindow(tk.Toplevel):
         self.main_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=10, pady=10, ipady=5, ipadx=5)
 
         #Labels
-        self.cst_lbl  = ttk.LabelFrame(self.main_frame, text="Customer Receipt")
+        self.cst_lbl  = ttk.LabelFrame(self.main_frame, text="Create Order")
         self.cst_lbl.grid(column=0, row=0, columnspan=4, sticky=tk.NSEW, padx=10) 
 
         self.pr_sel_lbl = ttk.Frame(self.cst_lbl)

@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image 
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
 
 from database import Database
 

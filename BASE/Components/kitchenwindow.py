@@ -1,7 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
 
 from orderedproducts import OrderedProducts
 from database import Database
