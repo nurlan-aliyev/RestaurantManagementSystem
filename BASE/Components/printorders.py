@@ -3,7 +3,9 @@ from tkinter import ttk
 from tkinter import messagebox
 from sqlite3 import Error
 
-import os
+import webbrowser
+
+from bs4 import BeautifulSoup
 
 from database import Database
 
@@ -70,13 +72,13 @@ class PrintOrders(tk.Toplevel):
         self.row_count.set(1)
 
         self.load_orders_btn = ttk.Button(self.main_frame, text="Load orders", command=self.load_orders)
-        self.load_orders_btn.grid(column=0, row=2, padx=(0,0), pady=10)
+        self.load_orders_btn.grid(column=0, row=2, padx=(50,0), pady=10)
 
         self.close_btn = ttk.Button(self.main_frame,text='Clear',command=self.clear_all)
-        self.close_btn.grid(column=1, row=2, padx=(0,0), pady=10)
+        self.close_btn.grid(column=1, row=2, padx=(50,0), pady=10)
 
         self.print_receipt_btn = ttk.Button(self.main_frame,text='Print receipt', state=tk.DISABLED, command=self.print_receipt)
-        self.print_receipt_btn.grid(column=2, row=2, padx=(0,0), pady=10)
+        self.print_receipt_btn.grid(column=2, row=2, padx=(50,0), pady=10)
         
         vcmd_tn = (self.register(self.callback_table_num))
 
@@ -93,7 +95,7 @@ class PrintOrders(tk.Toplevel):
                 res = self.fac_db.read_val(load_query, (self.t_num))
                 if res:    
                     for r in res:
-                        self.tr_view.insert("", tk.END, values=(r[0], r[1], r[2], r[3]))
+                        self.tr_view.insert("", tk.END, values=(r[0], r[1], r[2], f"{r[3]:.2f}"))
                     self.print_receipt_btn.config(state=tk.ACTIVE)
                 else:
                     messagebox.showwarning("No orders", f"No order has been cooked for table №{self.t_num}")
@@ -104,19 +106,52 @@ class PrintOrders(tk.Toplevel):
                         
         except Error as e: 
             print(e)
-    
-    def print_receipt(self):
-        with open(f"order_{self.t_num}.txt", 'x') as p_or_fl:
-            for child in self.tr_view.get_children():
-                p_or_fl.writelines(f"{self.tr_view.item(child)}")
-                
+            
+    def html_order(self, top_pad,name, quantity, price):
+        p_name = f"<span style='top:{150+(top_pad * 20)}pt; left:85pt; position:absolute; font-size:20pt;'>{name}</span>"
+        p_quantity = f"<span style='top:{150+(top_pad * 20)}pt; left:275pt; position:absolute; font-size:20pt;'>x{quantity}</span>"
+        p_price = f"<span style='top:{150+(top_pad * 20)}pt; right:85pt; position:absolute; font-size:20pt;'>{price}</span>"
+        return(BeautifulSoup(p_name, "html.parser"), BeautifulSoup(p_quantity, "html.parser"), BeautifulSoup(p_price, "html.parser"))
         
-    
+    def print_receipt(self):
+        tags = []
+        ind = 1
+        tot_p = 0
+        tot_q = 0
+        for child in self.tr_view.get_children():
+            val = self.tr_view.item(child)['values']
+            tot_p += float(val[3])
+            tot_q += int(val[2])
+            tag = self.html_order(ind, val[1], val[2], val[3])
+            tags.append(tag)
+            ind += 1
+        total_price = f"<span style='top:{170+(len(tags) * 40)}pt; left:85pt; position:absolute; font-size:20pt;'>Total: total ordered products {tot_q}, total price to be paid: {tot_p}</span>"
+        
+        with open("order_template.html") as html_doc:
+            doc = BeautifulSoup(html_doc, 'html.parser')
+            doc.find(text="Fac_name").replace_with(f"\"{self.fac_info[0]}\"")
+            doc.find(text="t_num").replace_with(f"Table №{self.t_num}")
+            for tag in tags:
+                doc.div.append(tag[0])
+                doc.div.append(tag[1])
+                doc.div.append(tag[2])
+            doc.div.append(BeautifulSoup(f"<hr style='top:{170+(len(tags)*30)}pt;' />", "html.parser"))
+            doc.div.append(BeautifulSoup(total_price, "html.parser"))
+            
+            str_doc = str(doc.prettify())
+        with open(f"order_{self.t_num}.html", "w+", encoding='utf-8') as p_or_fl:
+            p_or_fl.write(str_doc)
+            
+        webbrowser.open_new_tab(f"order_{self.t_num}.html")
+        self.clear_all()
+                
     def clear_all(self):
         self.tb_name_entry.delete(0, tk.END)
         
         for child in self.tr_view.get_children():
             self.tr_view.delete(child)
+        
+        self.print_receipt_btn.config(state=tk.DISABLED)
         
     def retrieve_fac_info(self):
         load_query = """SELECT * FROM fac_config"""
