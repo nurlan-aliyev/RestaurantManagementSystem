@@ -62,11 +62,16 @@
    
 - Here are the results of error handling:
 
-1. Table Number validation is handled as you type, when it exceeds maximum allowed amount the window below will show error (you can't enter anything other than digits) 
+
+  1. Table Number validation is handled as you type, when it exceeds maximum allowed amount the window below will show error (you can't enter anything other than digits) 
 
    ![Error handling 1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/90e3e465fe90150ea18a93059e357fc1d3201823/assets/bast/config_m_tval.png)
    
-   2. Seat Number exceeds maximum allowed (working principle is the same as table validation)
+  2. Seat Number exceeds maximum allowed (working principle is the same as table validation)
  
    ![Error hanling 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/90e3e465fe90150ea18a93059e357fc1d3201823/assets/bast/config_m_sval.png)
+   
+  3. Add button checks for the empty fields:
+  
+   ![Error handling 3](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/1619cdf36d6ff237ff3096204ff1ca49ba97a7b6/assets/bast/config_m_addval1.png)
 
