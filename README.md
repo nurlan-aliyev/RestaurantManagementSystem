@@ -90,6 +90,10 @@
 
    ![Create orders Window](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/8805825680f721421ff8bf78c126c0d1eda394ec/assets/bast/cr_order.png)
    
+- The correct way of filling out the forms is as follows:
+
+   ![Create orders window 1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/aeecf17a0adf24a12c207e63d1caadf6ddef6ddb/assets/bast/cr_order_1.png)
+   
 
    
    
