@@ -93,8 +93,10 @@
 - The correct way of filling out the forms is as follows:
 
    ![Create orders window 1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/aeecf17a0adf24a12c207e63d1caadf6ddef6ddb/assets/bast/cr_order_1.png)
-   
+ 
+- There is no limit on the number of products you can add to this list, and after getting orders and quantities, "Send to kitchen" button is activated, then the user is prompted to keep getting orders or return to the main window:
 
+   ![Create orders Window 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/7db1237d70eb7b77a1f472a801d49e617d888ad3/assets/bast/cr_order_4.png)
    
    
 
