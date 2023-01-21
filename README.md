@@ -42,18 +42,31 @@
 
 1. **Initial run**
 
-When started Main Window will pop up. Through its filebar we can access all the necessary windows.
+- When started Main Window will pop up. Through its filebar we can access all the necessary windows.
 
-![Main Window](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9617897106429e6d8a990bc693b6aae53da14bda/assets/bast/main_w.png)
+   ![Main Window](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9617897106429e6d8a990bc693b6aae53da14bda/assets/bast/main_w.png)
 
-- Filebar
+- Filebar let's us see the current state of the application. At first as there is no database file we can only open up the "Configure Facility/Menu" window to store configurations.
 
-Filebar let's us see the current state of the application. At first as there is no database file we can only open up the "Configure Facility/Menu" window to store configurations.
-
-![Filebar](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9617897106429e6d8a990bc693b6aae53da14bda/assets/bast/main_w2.png)
+   ![Filebar](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9617897106429e6d8a990bc693b6aae53da14bda/assets/bast/main_w2.png)
 
 2. **Configuration Window**
 
-In this window we can see the main configuration form to be filled. All of the Entry widgets have validation so, there is quite amount of error handling.
+- In this window we can see the main configuration form to be filled. All of the Entry widgets have validation so, there is quite amount of error handling.
 
-![Config Win](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9617897106429e6d8a990bc693b6aae53da14bda/assets/bast/config_m.png)
+   ![Config Win](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9617897106429e6d8a990bc693b6aae53da14bda/assets/bast/config_m.png)
+
+- Below is the correct way of configuring the application. First, facility name, table (max. 50) and seat (max. 400) numbers should be filled and saved. Next up, filling name and price of the product and clicking "Add Product" button to store it. By this time there will be a database file created and data will be stored on-the-go. And if you want to change the menu item, you can either click "Remove" or press the "Delete" button AFTER selecting the menu item. 
+
+   ![Config Win Filled](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/90e3e465fe90150ea18a93059e357fc1d3201823/assets/bast/config_m1.png)
+   
+- Here are the results of error handling:
+
+1. Table Number validation is handled as you type, when it exceeds maximum allowed amount the window below will show error (you can't enter anything other than digits) 
+
+   ![Error handling 1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/90e3e465fe90150ea18a93059e357fc1d3201823/assets/bast/config_m_tval.png)
+   
+   2. Seat Number exceeds maximum allowed (working principle is the same as table validation)
+ 
+   ![Error hanling 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/90e3e465fe90150ea18a93059e357fc1d3201823/assets/bast/config_m_sval.png)
+
