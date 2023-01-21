@@ -125,5 +125,15 @@
 
    ![Kitchen 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/77ba876e30d319cb5b75780f81c03581539f99ec/assets/bast/ktc_2.png)
    
+  
+5. **Print Orders Window**
+
+- This window is activated right after an order is completed in the kitchen. Interface is similiar to "Create Orders" window.
+
+   ![Print orders](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/d77e8ea3c7bad73077868eac0c59edecc09d9dd1/assets/bast/pr_or.png)
+   
+
+   
+   
    
 
