@@ -2,8 +2,6 @@
 # RMS V0.1.1
 ## Restaurant Management System 
 
-Author: [Nurlan Aliyev](https://linktr.ee/nurlan_aliyev13)
-
  - **General introduction**
 	Restaurants nowadays require modern solutions to handle daily tasks, especially when it comes to order handling as book keeping is outdated for modern times, in which human fault might cost the facility lots of money. Restaurant Management System (will be referred as RMS from now on) offers following to tackle the problem:
 
