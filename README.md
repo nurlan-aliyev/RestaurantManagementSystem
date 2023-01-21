@@ -116,4 +116,14 @@
 
    ![Kitchen](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/ff70c96437ccef07dc25a890ed5d5da437fceca1/assets/bast/main_w4.png)
    
+- This window registers orders to a Notebook widget and lists the orders with quantities
+
+   ![Kitchen 1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/77ba876e30d319cb5b75780f81c03581539f99ec/assets/bast/ktc_1.png)
+   
+- In order to fulfil an order, the item has to be chosen, "Cook" button should be clicked and if and only if all of the items are cooked then "Fulfil order" button will be activated. When clicked on, this button will remove this order from "Orders" table and store it to "Cooked_Orders" table. It also deletes the current Notebook tab, hence if it's the only tab then the window is closed and "Kitchen" is deactivated until new orders are sent.
+
+
+   ![Kitchen 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/77ba876e30d319cb5b75780f81c03581539f99ec/assets/bast/ktc_2.png)
+   
+   
 
