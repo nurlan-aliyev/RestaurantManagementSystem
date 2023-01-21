@@ -98,5 +98,12 @@
 
    ![Create orders Window 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/7db1237d70eb7b77a1f472a801d49e617d888ad3/assets/bast/cr_order_4.png)
    
+- This window includes various validations as listed below:
+
+1. Table number is not entered correctly or left empty:
+
+   ![Error handling 3.1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/bc84dbb167720ad86f33f6d6f0018669fd955200/assets/bast/cr_order_3.png)
+
+   
    
 
