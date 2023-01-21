@@ -104,6 +104,9 @@
 
    ![Error handling 3.1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/bc84dbb167720ad86f33f6d6f0018669fd955200/assets/bast/cr_order_3.png)
 
-   
+
+2. There is at least one meal that is not selected, if this is the case, the items should all be deleted and started over (if you have better solutions please open up PR)
+
+   ![Error handling 3.2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/a5d64530f0c8826b5710586fa40068ff465d6fac/assets/bast/cr_order_2.png)
    
 
