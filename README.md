@@ -109,4 +109,11 @@
 
    ![Error handling 3.2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/a5d64530f0c8826b5710586fa40068ff465d6fac/assets/bast/cr_order_2.png)
    
+   
+4. **Kitchen**
+
+- As soon as the previous window closes and there are orders stored in the database, "Kitchen" will be activated in the filebar
+
+   ![Kitchen](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/ff70c96437ccef07dc25a890ed5d5da437fceca1/assets/bast/main_w4.png)
+   
 
