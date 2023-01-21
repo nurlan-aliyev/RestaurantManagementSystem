@@ -60,7 +60,7 @@
 
    ![Config Win Filled](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/90e3e465fe90150ea18a93059e357fc1d3201823/assets/bast/config_m1.png)
    
-- Here are the results of error handling:
+- This window includes various validations as listed below:
 
 
   1. Table Number validation is handled as you type, when it exceeds maximum allowed amount the window below will show error (you can't enter anything other than digits) 
@@ -85,6 +85,12 @@
 - As soon as the configuration menu closed and if there is configurations stored, a new window will be accessible through the main window
 
    ![New menu item](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9c9aadf0ffebf62bbab87761098e737cf5985cb9/assets/bast/main_w3.png)
+   
+- In this new window we will be able to create orders and send them to the kitchen
+
+   ![Create orders Window](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/8805825680f721421ff8bf78c126c0d1eda394ec/assets/bast/cr_order.png)
+   
+
    
    
 
