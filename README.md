@@ -2,6 +2,8 @@
 # RMS V0.1.1
 ## Restaurant Management System 
 
+Author: [Nurlan Aliyev](https://linktr.ee/nurlan_aliyev13)
+
  - **General introduction**
 	Restaurants nowadays require modern solutions to handle daily tasks, especially when it comes to order handling as book keeping is outdated for modern times, in which human fault might cost the facility lots of money. Restaurant Management System (will be referred as RMS from now on) offers following to tackle the problem:
 
@@ -137,6 +139,33 @@
 
    ![Print orders 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/dca7e3b168afd01194382ca021b7fe56d97204ee/assets/bast/pr_or_2.png)
    
+   
+- The receipt is created based on a template HTML file and stored with the given table number as its file name. Right after storing the file is opened in the default browser where it can be printed
+
+   ![Print orders 3](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/d90f8700d9687fdd1a07fd148429a3b00e44f987/assets/bast/pr_or_3.png)
+
+
+- This window includes various validations as listed below:
+
+
+1. Table number is not entered or entered incorrectly:
+
+   ![Error handling 5.1](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/d90f8700d9687fdd1a07fd148429a3b00e44f987/assets/bast/pr_or_1.png)
+   
+   
+2.  There is no any order made for the given table number (Warning message is used instead of Error):
+
+
+   ![Warning 5.2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/d90f8700d9687fdd1a07fd148429a3b00e44f987/assets/bast/pr_or_4.png)
+   
+
+6. **Conclusion**
+
+- This app is made as the finals project for the Programming subject of the course of Msc. in Construction Information Technology Engineering during Dec 2022 - 2023 Jan.
+
+
+
+Author: [Nurlan Aliyev](https://linktr.ee/nurlan_aliyev13)
    
    
 
