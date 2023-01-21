@@ -132,7 +132,10 @@
 
    ![Print orders](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/d77e8ea3c7bad73077868eac0c59edecc09d9dd1/assets/bast/pr_or.png)
    
+   
+- After filling out the table number correctly the orders can be loaded via "Load orders" button. When the orders are listed the "Print receipt" button is activated
 
+   ![Print orders 2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/dca7e3b168afd01194382ca021b7fe56d97204ee/assets/bast/pr_or_2.png)
    
    
    
