@@ -74,4 +74,17 @@
   3. Add button checks for the empty fields:
   
    ![Error handling 3](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/1619cdf36d6ff237ff3096204ff1ca49ba97a7b6/assets/bast/config_m_addval1.png)
+   
+  4. Add button validates product name length (max. allowed length 20) and price (max. allowed 10 mln Hungarian Forints and real numbers of type float)
+  
+   ![Error handling 4](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9c9aadf0ffebf62bbab87761098e737cf5985cb9/assets/bast/config_m_addval2.png)
+   
+   
+3. **Create Orders Window**
+
+- As soon as the configuration menu closed and if there is configurations stored, a new window will be accessible through the main window
+
+   ![New menu item](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/9c9aadf0ffebf62bbab87761098e737cf5985cb9/assets/bast/main_w3.png)
+   
+   
 
