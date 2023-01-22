@@ -161,6 +161,7 @@
    ![Warning 5.2](https://github.com/nurlan-aliyev/RMSV0.1.1/blob/d90f8700d9687fdd1a07fd148429a3b00e44f987/assets/bast/pr_or_4.png)
    
 
+
 6. **Conclusion**
 
 - This app is made as the finals project for the Programming subject of the course of Msc. in Construction Information Technology Engineering during Dec 2022 - 2023 Jan.
