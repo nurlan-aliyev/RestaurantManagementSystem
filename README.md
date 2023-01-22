@@ -4,6 +4,8 @@
 
  - [**Video Link**](https://youtu.be/JIb5oQDGY3c)
 
+<a href="https://www.buymeacoffee.com/nurlanaliyev"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60"></a>
+
  - **General introduction**
 	Restaurants nowadays require modern solutions to handle daily tasks, especially when it comes to order handling as book keeping is outdated for modern times, in which human fault might cost the facility lots of money. Restaurant Management System (will be referred as RMS from now on) offers following to tackle the problem:
 
