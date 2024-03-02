@@ -9,7 +9,7 @@ class AboutWindow(tk.Toplevel):
         super().__init__(parent)
 
         self.win_width = 360
-        self.win_height = 300
+        self.win_height = 250
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -20,5 +20,5 @@ class AboutWindow(tk.Toplevel):
         self.resizable(0, 0)
         self.title('About the application')
 
-        about_lbl = ttk.Label(self, wraplength=300, justify='left', padding=(5,20, 0, 0), font=("Helvetica Bold", 12),text="This application is developed by Aliyev Nurlan as a final project for Programming course of Msc. in Construction Information Technology Engineering. Main functionality of this app involves managing a restaurant system, facilitating the order process between customer an the kitchen chief. Date of development December 2022.")
+        about_lbl = ttk.Label(self, wraplength=300, justify='left', padding=(5,50, 0, 0), font=("Helvetica Bold", 12),text="This application is developed by Aliyev Nurlan as a final project for Programming course of Msc. in Construction Information Technology Engineering. Main functionality of this app involves managing a restaurant system, facilitating the order process between customer an the kitchen chief. Date of development December 2022.")
         about_lbl.pack()

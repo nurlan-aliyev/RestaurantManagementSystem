@@ -5,6 +5,8 @@ from sqlite3 import Error
 
 import webbrowser
 
+import os
+
 from bs4 import BeautifulSoup
 
 from database import Database
@@ -17,7 +19,7 @@ class PrintOrders(tk.Toplevel):
         self.order_ls = []
         
         self.win_width = 640
-        self.win_height = 540
+        self.win_height = 470
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -126,7 +128,7 @@ class PrintOrders(tk.Toplevel):
             tags.append(tag)
             ind += 1
         total_price = f"<span style='top:{170+(len(tags) * 40)}pt; left:85pt; position:absolute; font-size:20pt;'>Total: total ordered products {tot_q}, total price to be paid: {tot_p}</span>"
-        
+
         with open("order_template.html") as html_doc:
             doc = BeautifulSoup(html_doc, 'html.parser')
             doc.find(text="Fac_name").replace_with(f"\"{self.fac_info[0]}\"")

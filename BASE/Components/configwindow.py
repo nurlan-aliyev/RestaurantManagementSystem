@@ -11,8 +11,8 @@ class ConfigWindow(tk.Toplevel):
         self.func = func
         self.init_database()
 
-        self.win_width = 530
-        self.win_height = 650
+        self.win_width = 500
+        self.win_height = 600
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         self.i = 5

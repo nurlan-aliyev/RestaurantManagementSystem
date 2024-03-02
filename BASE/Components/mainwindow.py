@@ -29,7 +29,7 @@ class MainWindow(tk.Tk):
         self.m_frame = ttk.Frame(self, width=600, height=400)
         self.m_frame.grid(row=0, column=0,  sticky=tk.NSEW)
 
-        self.iconphoto(True, tk.PhotoImage(file='C:/Users/N/Desktop/PYTHON_BME/pythonProject/HW/assets/icon_m.png'))
+        self.iconphoto(True, tk.PhotoImage(file='assets\icon_m.png'))
 
         self.menubar = tk.Menu(self.m_frame)
         self.filebar = tk.Menu(self.menubar, tearoff=0)
@@ -47,12 +47,12 @@ class MainWindow(tk.Tk):
 
         self.config(menu=self.menubar)
 
-        self.img = Image.open("C:\\Users\\N\\Desktop\\PYTHON_BME\\pythonProject\\HW\\assets\\main_win_ph.png")
+        self.img = Image.open("assets\main_win_ph.png")
         self.img = self.img.resize((250, 250), Image.Resampling.LANCZOS)
         self.img = ImageTk.PhotoImage(self.img)
         self.panel = tk.Label(self.m_frame, image = self.img, text="Restaurant Management System", compound='top', font=("Helvetica Bold", 20))
         self.panel.image = self.img
-        self.panel.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=35)
+        self.panel.grid(row=0, column=0, sticky=tk.NSEW, padx=90, pady=35)
 
         self.vers = tk.Label(self.m_frame, text="v0.1, N.A", font=("Helvetica", 8))
         self.vers.grid(row=1, column=0, sticky=tk.SW, padx=10)

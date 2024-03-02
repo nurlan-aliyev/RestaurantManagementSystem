@@ -14,8 +14,8 @@ class CreateOrders(tk.Toplevel):
         
         self.order_ls = []
         
-        self.win_width = 600
-        self.win_height = 570
+        self.win_width = 580
+        self.win_height = 550
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
