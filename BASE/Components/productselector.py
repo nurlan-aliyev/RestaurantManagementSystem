@@ -1,6 +1,7 @@
+import os
 import tkinter as tk
 from tkinter import ttk
-from PIL import ImageTk, Image 
+from PIL import ImageTk, Image
 
 from database import Database
 
@@ -9,7 +10,7 @@ class ProductSelector(tk.Frame):
     def __init__(self, parent, root_frame, row, func):
         self.func = func
         tk.Frame.__init__(self, parent)
-        
+
         self.init_database()
 
         self.menuBtn = ttk.Menubutton(root_frame, text="Select a meal")
@@ -38,23 +39,27 @@ class ProductSelector(tk.Frame):
         self.order_st_lb = ttk.Label(root_frame,  text="Choosing")
         self.order_st_lb.grid(column=2, row=row, padx=(110, 10))
 
-        self.del_icon_png = Image.open('D:\\Nurlan\\Uni Materialları\\Abroad\\BME\\MSc\\1st Sem\\Programming\\PYTHON_BME\\pythonProject\\HW\\assets\\delete.png')
-        self.del_icon_res = self.del_icon_png.resize((18, 18), Image.Resampling.LANCZOS)
+        self.del_icon_png = Image.open(
+            os.path.join(os.getcwd(), 'assets/delete.png'))
+        self.del_icon_res = self.del_icon_png.resize(
+            (18, 18), Image.Resampling.LANCZOS)
         self.del_icon = ImageTk.PhotoImage(self.del_icon_res)
-        self.destroy_btn = ttk.Button(root_frame, image=self.del_icon, width=10, command=self.destroy_all)
+        self.destroy_btn = ttk.Button(
+            root_frame, image=self.del_icon, width=10, command=self.destroy_all)
         self.destroy_btn.image = self.del_icon
         self.destroy_btn.grid(column=3, row=row, padx=(10, 0))
-        
+
     def init_database(self):
         self.fac_db = Database("restaurant.db")
-        
+
     def retrieve_products(self):
         load_query = """SELECT * FROM menu_config"""
         result = self.fac_db.read_val(load_query)
         for row in result:
             pr_lbl = row[1]
-            self.menu.add_radiobutton(label=pr_lbl, variable=self.m_var1, command=self.sel)
-            
+            self.menu.add_radiobutton(
+                label=pr_lbl, variable=self.m_var1, command=self.sel)
+
     def pad_num(self):
         var_len = len(self.m_var1.get())
         return 165 - ((var_len - 1) * 7.5)
@@ -64,7 +69,7 @@ class ProductSelector(tk.Frame):
         self.menuBtn.config(text=selx)
         self.pad_n = self.pad_num()
         self.order_updt()
-    
+
     def retrieve_data(self):
         return (self.m_var1.get(), self.pr_qty_var.get())
 

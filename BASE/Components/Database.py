@@ -2,6 +2,7 @@
 import sqlite3
 from sqlite3 import Error
 
+
 class Database:
     def __init__(self, db):
         self.conn = sqlite3.connect(db)
@@ -11,7 +12,6 @@ class Database:
         self.conn.commit()
 
         self.insert_genconfig()
-      
 
     def create_table(self, create_table_query):
         try:
@@ -24,11 +24,11 @@ class Database:
     def insert_genconfig(self):
         try:
             self.cur.execute("INSERT OR IGNORE INTO gen_config(id, conf_name) VALUES (?, ?)",
-                            (1, "fac_config"))
+                             (1, "fac_config"))
             self.cur.execute("INSERT OR IGNORE INTO gen_config(id, conf_name) VALUES (?, ?)",
-                    (2, "menu_config"))    
+                             (2, "menu_config"))
             self.cur.execute("INSERT OR IGNORE INTO gen_config(id, conf_name) VALUES (?, ?)",
-                            (3, "orders"))     
+                             (3, "orders"))
             self.conn.commit()
         except Error as e:
             print(e)
@@ -61,7 +61,7 @@ class Database:
             return rows
         except Error as e:
             print(e)
-            
+
     def delete_val(self, delete_query, item_id):
         try:
             con = self.cur
@@ -69,6 +69,6 @@ class Database:
             self.conn.commit()
         except Error as e:
             print(e)
-            
+
     def __del__(self):
         self.conn.close()
