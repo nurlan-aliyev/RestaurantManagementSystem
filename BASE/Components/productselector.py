@@ -40,7 +40,7 @@ class ProductSelector(tk.Frame):
         self.order_st_lb.grid(column=2, row=row, padx=(110, 10))
 
         self.del_icon_png = Image.open(
-            os.path.join(os.getcwd(), 'assets/delete.png'))
+            os.path.join(os.path.dirname(__file__), 'assets', 'delete.png'))
         self.del_icon_res = self.del_icon_png.resize(
             (18, 18), Image.Resampling.LANCZOS)
         self.del_icon = ImageTk.PhotoImage(self.del_icon_res)
