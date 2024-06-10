@@ -11,6 +11,9 @@ from createorders import CreateOrders
 from aboutwindow import AboutWindow
 from database import Database
 
+# basedir = os.path.dirname(__file__)
+# print(basedir)
+
 
 class MainWindow(tk.Tk):
     def __init__(self):
@@ -32,7 +35,12 @@ class MainWindow(tk.Tk):
         self.m_frame = ttk.Frame(self, width=600, height=400)
         self.m_frame.grid(row=0, column=0,  sticky=tk.NSEW)
 
-        self.iconphoto(True, tk.PhotoImage(file='assets\icon_m.png'))
+        icon_path = os.path.join(os.path.dirname(
+            __file__), 'assets', 'icon_m.png')
+        self.icon_image = Image.open(icon_path)
+        self.python_image = ImageTk.PhotoImage(self.icon_image)
+
+        self.iconphoto(True, self.python_image)
 
         self.menubar = tk.Menu(self.m_frame)
         self.filebar = tk.Menu(self.menubar, tearoff=0)
@@ -55,7 +63,7 @@ class MainWindow(tk.Tk):
         self.config(menu=self.menubar)
 
         self.img = Image.open(os.path.join(
-            os.getcwd(), 'assets\main_win_ph.png'))
+            os.path.dirname(__file__), 'assets', 'main_win_ph.png'))
         self.img = self.img.resize((250, 250), Image.Resampling.LANCZOS)
         self.img = ImageTk.PhotoImage(self.img)
         self.panel = tk.Label(
