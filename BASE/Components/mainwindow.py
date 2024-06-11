@@ -36,7 +36,7 @@ class MainWindow(tk.Tk):
         self.m_frame.grid(row=0, column=0,  sticky=tk.NSEW)
 
         icon_path = os.path.join(os.path.dirname(
-            __file__), 'assets', 'icon_m.png')
+            os.path.dirname(__file__)), 'assets', 'icon_m.png')
         self.icon_image = Image.open(icon_path)
         self.python_image = ImageTk.PhotoImage(self.icon_image)
 
@@ -63,7 +63,7 @@ class MainWindow(tk.Tk):
         self.config(menu=self.menubar)
 
         self.img = Image.open(os.path.join(
-            os.path.dirname(__file__), 'assets', 'main_win_ph.png'))
+            os.path.dirname(os.path.dirname(__file__)), 'assets', 'main_win_ph.png'))
         self.img = self.img.resize((250, 250), Image.Resampling.LANCZOS)
         self.img = ImageTk.PhotoImage(self.img)
         self.panel = tk.Label(
@@ -77,7 +77,7 @@ class MainWindow(tk.Tk):
         self.panel.grid(row=0, column=0, sticky=tk.NSEW, padx=90, pady=35)
 
         self.vers = tk.Label(
-            self.m_frame, text="v0.1, N.A", font=("Helvetica", 8))
+            self.m_frame, text="v0.1.2, N.A", font=("Helvetica", 8))
         self.vers.grid(row=1, column=0, sticky=tk.SW, padx=10)
         self.check_databases()
 

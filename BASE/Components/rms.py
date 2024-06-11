@@ -1,5 +1,5 @@
 """
-Restaurant Management System v0.1NA,
+Restaurant Management System v0.1.2 NA,
     App is made to facilitate restaurant management processes.
 
 Developed by Aliyev Nurlan in Dec 2022
