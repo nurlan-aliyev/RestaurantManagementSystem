@@ -43,6 +43,21 @@
 
 ## Use of the application
 
+Clone the repo to your local machine:
+```
+ git clone https://github.com/nurlan-aliyev/RestaurantManagementSystem.git
+ cd Rest
+```
+
+Run pip install to get beautifulsoup4:
+```
+ pip install beautifulsoup4
+```
+
+Run the command below to initialize the app:
+```
+ python BASE/Components/rms.py
+```
 1. **Initial run**
 
 - When started Main Window will pop up. Through its filebar we can access all the necessary windows.
