@@ -46,7 +46,7 @@
 Clone the repo to your local machine:
 ```
  git clone https://github.com/nurlan-aliyev/RestaurantManagementSystem.git
- cd Rest
+ cd RestaurantManagementSystem
 ```
 
 Run pip install to get beautifulsoup4:
