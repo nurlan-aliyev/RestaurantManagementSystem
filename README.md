@@ -49,9 +49,9 @@ Clone the repo to your local machine:
  cd RestaurantManagementSystem
 ```
 
-Run pip install to get beautifulsoup4:
+Run pip install to get required packages:
 ```
- pip install beautifulsoup4
+ pip install
 ```
 
 Run the command below to initialize the app:
