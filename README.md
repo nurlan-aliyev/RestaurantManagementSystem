@@ -51,7 +51,7 @@ Clone the repo to your local machine:
 
 Run pip install to get required packages:
 ```
- pip install
+ pip install requirements.txt
 ```
 
 Run the command below to initialize the app:
